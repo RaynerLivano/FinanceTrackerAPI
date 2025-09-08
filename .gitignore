@@ -1,0 +1,26 @@
+﻿# Build Folders
+bin/
+obj/
+out/
+
+# User-specific files
+*.user
+*.userosscache
+*.sln.docstates
+
+# IDE folders
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+
+# DotNet tools
+*.dbmdl
+*.bak
+*.ldf
+*.mdf
+
+# Sensitive files
+appsettings.*.local.json

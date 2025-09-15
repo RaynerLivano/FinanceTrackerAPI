@@ -1,4 +1,5 @@
 using Microsoft.AspNetCore.Mvc;
+using FinanceTrackerAPI.Data;
 using FinanceTrackerAPI.Models;
 
 namespace FinanceTrackerAPI.Controllers
@@ -7,37 +8,39 @@ namespace FinanceTrackerAPI.Controllers
     [Route("api/[controller]")]
     public class TransactionsController : ControllerBase
     {
-        private static readonly List<Transaction> Transactions = new();
-        private static int Id = 1;
+        private readonly AppDbContext _context;
+
+        public TransactionsController(AppDbContext context)
+        {
+            _context = context;
+        }
 
         [HttpGet]
         public IActionResult GetAll()
         {
-            return Ok(Transactions);
+            var transactions = _context.Transactions.ToList();
+            return Ok(transactions);
         }
 
         [HttpPost]
         public IActionResult Create(Transaction transaction)
         {
-            bool exits = Transactions.Any(t => 
-            t.Description == transaction.Description && 
-            t.Amount == transaction.Amount && 
-            t.Date.Date == transaction.Date.Date);
-
-            if (exits)
-            {
-                return Conflict("Transaction already exists.");
-            }
-            
-            transaction.Id = Id++;
-            Transactions.Add(transaction);
+            _context.Transactions.Add(transaction);
+            _context.SaveChanges(); // saves to DB
             return CreatedAtAction(nameof(GetAll), transaction);
         }
 
-        [HttpDelete("clear")]
-        public IActionResult Clear()
+        [HttpDelete("{id}")]
+        public IActionResult Delete(int id)
         {
-            Transactions.Clear();
+            var transaction = _context.Transactions.Find(id);
+            if (transaction == null)
+            {
+                return NotFound();
+            }
+
+            _context.Transactions.Remove(transaction);
+            _context.SaveChanges();
             return NoContent();
         }
     }

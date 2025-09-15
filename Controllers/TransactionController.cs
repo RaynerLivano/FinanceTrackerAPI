@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using FinanceTrackerAPI.Data;
 using FinanceTrackerAPI.Models;
+using Microsoft.EntityFrameworkCore;
 
 namespace FinanceTrackerAPI.Controllers
 {
@@ -22,11 +23,19 @@ namespace FinanceTrackerAPI.Controllers
             return Ok(transactions);
         }
 
+        [HttpGet("by-category/{category}")]
+        public async Task<ActionResult<IEnumerable<Transaction>>> GetByCategory(string category)
+        {
+            return await _context.Transactions
+                .Where(t => t.Category == category)
+                .ToListAsync();
+        }
+
         [HttpPost]
         public IActionResult Create(Transaction transaction)
         {
             _context.Transactions.Add(transaction);
-            _context.SaveChanges(); // saves to DB
+            _context.SaveChanges(); 
             return CreatedAtAction(nameof(GetAll), transaction);
         }
 

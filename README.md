@@ -14,12 +14,15 @@ Built as a learning project to practice backend development, migrations, and API
 ---
 
 ## Features
-- ➕ Add new transactions (`POST /api/transactions`)
-- 📄 Get all transactions (`GET /api/transactions`)
-- 🏷️ Filter transactions by category (`GET /api/transactions/by-category/{category}`)
-- 🗑️ Delete a transaction (`DELETE /api/transactions/{id}`)
+- Add new transactions (`POST /api/transactions`)
+- Get all transactions (`GET /api/transactions`)
+- Filter transactions by category (`GET /api/transactions/by-category/{category}`)
+- Update a transaction (`PUT /api/transactions/{id}`)
+- Delete a transaction (`DELETE /api/transactions/{id}`)
+- Get balance summary (`GET /api/transactions/summary`)
+- Get monthly summary (`GET /api/transactions/summary/month/{year}/{month}`)
 
-(Planned: ✏️ Update transaction with `PUT`)
+(Planned: Authentication, User Accounts, Budgets & Reports)
 
 ---
 
@@ -29,7 +32,7 @@ Built as a learning project to practice backend development, migrations, and API
 ```sh
 git clone https://github.com/RaynerLivano/FinanceTrackerAPI.git
 cd FinanceTrackerAPI
-````
+```
 
 ### 2. Restore dependencies
 
@@ -60,11 +63,12 @@ dotnet run
 ```
 
 ### 6. Open Swagger UI
-```sh
+
 Swagger will be available at:
-👉 [http://localhost:5000/swagger](http://localhost:5000/swagger)
-👉 [https://localhost:7000/swagger](https://localhost:7000/swagger) (for HTTPS)
+
+* [http://localhost:5000/swagger](http://localhost:5000/swagger)
+* [https://localhost:7000/swagger](https://localhost:7000/swagger) (for HTTPS)
+
 ```
 
-
-
+---
